@@ -4,6 +4,7 @@ import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Random;
 
 public class AlbumController {
     private Connection conn;
@@ -17,7 +18,16 @@ public class AlbumController {
             pstmt.setString(2,name);
             pstmt.setInt(3,artistId);
             pstmt.setInt(4,releaseYear);
+
             pstmt.executeUpdate();
+
+               String sql1 = "insert into charts (album_id,rating) values (?,?)";
+            PreparedStatement pstmt1=  conn.prepareStatement(sql1);
+            pstmt1.setInt(1,id);
+            Random rand=new Random();
+            int k=rand.nextInt(100);
+            pstmt1.setInt(2,k);
+            pstmt1.executeUpdate();
             /** incrementam id-ul */
             id++;
         }
